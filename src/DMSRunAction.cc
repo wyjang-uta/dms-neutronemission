@@ -24,13 +24,13 @@
 // ********************************************************************
 //
 //
-/// \file B1RunAction.cc
-/// \brief Implementation of the B1RunAction class
+/// \file DMSRunAction.cc
+/// \brief Implementation of the DMSRunAction class
 
-#include "B1RunAction.hh"
-#include "B1PrimaryGeneratorAction.hh"
-#include "B1DetectorConstruction.hh"
-// #include "B1Run.hh"
+#include "DMSRunAction.hh"
+#include "DMSPrimaryGeneratorAction.hh"
+#include "DMSDetectorConstruction.hh"
+// #include "DMSRun.hh"
 
 #include "G4RunManager.hh"
 #include "G4Run.hh"
@@ -44,7 +44,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-B1RunAction::B1RunAction()
+DMSRunAction::DMSRunAction()
 : G4UserRunAction()
 {
   // Analysis manager
@@ -73,12 +73,12 @@ B1RunAction::B1RunAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-B1RunAction::~B1RunAction()
+DMSRunAction::~DMSRunAction()
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void B1RunAction::BeginOfRunAction(const G4Run*)
+void DMSRunAction::BeginOfRunAction(const G4Run*)
 {
   // inform the runManager to save random number seed
   G4RunManager::GetRunManager()->SetRandomNumberStore(false);
@@ -95,7 +95,7 @@ void B1RunAction::BeginOfRunAction(const G4Run*)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void B1RunAction::EndOfRunAction(const G4Run* /*run*/)
+void DMSRunAction::EndOfRunAction(const G4Run* /*run*/)
 {
   // Print
   //

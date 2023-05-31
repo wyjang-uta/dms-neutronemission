@@ -24,28 +24,42 @@
 // ********************************************************************
 //
 //
-/// \file B1ActionInitialization.hh
-/// \brief Definition of the B1ActionInitialization class
+/// \file DMSPrimaryGeneratorAction.hh
+/// \brief Definition of the DMSPrimaryGeneratorAction class
 
-#ifndef B1ActionInitialization_h
-#define B1ActionInitialization_h 1
+#ifndef DMSPrimaryGeneratorAction_h
+#define DMSPrimaryGeneratorAction_h 1
 
-#include "G4VUserActionInitialization.hh"
+#include "G4VUserPrimaryGeneratorAction.hh"
+#include "G4ParticleGun.hh"
+#include "globals.hh"
 
-/// Action initialization class.
+class G4ParticleGun;
+class G4Event;
+class G4Box;
 
-class B1ActionInitialization : public G4VUserActionInitialization
+/// The primary generator action class with particle gun.
+///
+/// The default kinematic is a 6 MeV gamma, randomly distribued 
+/// in front of the phantom across 80% of the (X,Y) phantom size.
+
+class DMSPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
   public:
-    B1ActionInitialization();
-    virtual ~B1ActionInitialization();
+    DMSPrimaryGeneratorAction();
+    virtual ~DMSPrimaryGeneratorAction();
 
-    virtual void BuildForMaster() const;
-    virtual void Build() const;
+    // method from the base class
+    virtual void GeneratePrimaries(G4Event*);
+
+    // method to access particle gun
+    const G4ParticleGun* GetParticleGun() const { return fParticleGun; }
+
+  private:
+    G4ParticleGun*  fParticleGun; // pointer a to G4 gun class
+    G4Box* fEnvelopeBox;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
-
-    

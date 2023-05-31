@@ -24,11 +24,11 @@
 // ********************************************************************
 //
 //
-/// \file exampleB1.cc
-/// \brief Main program of the B1 example
+/// \file dms-neutronemission.cc
+/// \brief Main program of the DMS neutron emission simulation
 
-#include "B1DetectorConstruction.hh"
-#include "B1ActionInitialization.hh"
+#include "DMSDetectorConstruction.hh"
+#include "DMSActionInitialization.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -74,7 +74,7 @@ int main(int argc,char** argv)
   // Set mandatory initialization classes
   //
   // Detector construction
-  runManager->SetUserInitialization(new B1DetectorConstruction());
+  runManager->SetUserInitialization(new DMSDetectorConstruction());
 
   // Physics list
   G4VModularPhysicsList* physicsList = new QGSP_BIC_AllHP;
@@ -82,7 +82,7 @@ int main(int argc,char** argv)
   runManager->SetUserInitialization(physicsList);
 
   // User action initialization
-  runManager->SetUserInitialization(new B1ActionInitialization());
+  runManager->SetUserInitialization(new DMSActionInitialization());
 
   // Initialize visualization
   //

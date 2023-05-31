@@ -2,7 +2,7 @@
 #----------------------------------------------------------------------------
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(B1)
+project(DMS)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -34,17 +34,17 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(exampleB1 exampleB1.cc ${sources} ${headers})
-target_link_libraries(exampleB1 ${Geant4_LIBRARIES})
+add_executable(dms-neutronemission dms-neutronemission.cc ${sources} ${headers})
+target_link_libraries(dms-neutronemission ${Geant4_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
-# build B1. This is so that we can run the executable directly because it
+# build DMS. This is so that we can run the executable directly because it
 # relies on these scripts being in the current working directory.
 #
-set(EXAMPLEB1_SCRIPTS
-  exampleB1.in
-  exampleB1.out
+set(EXAMPLEDMS_SCRIPTS
+  dms-neutronemission.in
+  dms-neutronemission.out
   init_vis.mac
   run1.mac
   run2.mac
@@ -52,7 +52,7 @@ set(EXAMPLEB1_SCRIPTS
   vis.mac
   )
 
-foreach(_script ${EXAMPLEB1_SCRIPTS})
+foreach(_script ${EXAMPLEDMS_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
@@ -64,10 +64,10 @@ endforeach()
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-add_custom_target(B1 DEPENDS exampleB1)
+add_custom_target(DMS DEPENDS dms-neutronemission)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS exampleB1 DESTINATION bin)
+install(TARGETS dms-neutronemission DESTINATION bin)
 

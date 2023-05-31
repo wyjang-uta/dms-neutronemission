@@ -24,31 +24,31 @@
 // ********************************************************************
 //
 //
-/// \file B1EventAction.hh
-/// \brief Definition of the B1EventAction class
+/// \file DMSEventAction.hh
+/// \brief Definition of the DMSEventAction class
 
-#ifndef B1EventAction_h
-#define B1EventAction_h 1
+#ifndef DMSEventAction_h
+#define DMSEventAction_h 1
 
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 
-class B1RunAction;
+class DMSRunAction;
 
 /// Event action class
 ///
 
-class B1EventAction : public G4UserEventAction
+class DMSEventAction : public G4UserEventAction
 {
   public:
-    B1EventAction(B1RunAction* runAction);
-    virtual ~B1EventAction();
+    DMSEventAction(DMSRunAction* runAction);
+    virtual ~DMSEventAction();
 
     virtual void BeginOfEventAction(const G4Event* event);
     virtual void EndOfEventAction(const G4Event* event);
 
   private:
-    B1RunAction* fRunAction;
+    DMSRunAction* fRunAction;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

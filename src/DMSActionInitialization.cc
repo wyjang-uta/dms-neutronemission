@@ -24,32 +24,47 @@
 // ********************************************************************
 //
 //
-/// \file B1DetectorConstruction.hh
-/// \brief Definition of the B1DetectorConstruction class
+/// \file DMSActionInitialization.cc
+/// \brief Implementation of the DMSActionInitialization class
 
-#ifndef B1DetectorConstruction_h
-#define B1DetectorConstruction_h 1
-
-#include "G4VUserDetectorConstruction.hh"
-#include "globals.hh"
-
-class G4VPhysicalVolume;
-class G4LogicalVolume;
-
-/// Detector construction class to define materials and geometry
-
-class B1DetectorConstruction : public G4VUserDetectorConstruction
-{
-  public:
-    B1DetectorConstruction();
-    virtual ~B1DetectorConstruction();
-
-    virtual G4VPhysicalVolume* Construct();
-
-  protected:
-};
+#include "DMSActionInitialization.hh"
+#include "DMSPrimaryGeneratorAction.hh"
+#include "DMSRunAction.hh"
+#include "DMSEventAction.hh"
+#include "DMSSteppingAction.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#endif
+DMSActionInitialization::DMSActionInitialization()
+ : G4VUserActionInitialization()
+{}
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+DMSActionInitialization::~DMSActionInitialization()
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void DMSActionInitialization::BuildForMaster() const
+{
+  DMSRunAction* runAction = new DMSRunAction;
+  SetUserAction(runAction);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void DMSActionInitialization::Build() const
+{
+  SetUserAction(new DMSPrimaryGeneratorAction);
+
+  DMSRunAction* runAction = new DMSRunAction;
+  SetUserAction(runAction);
+
+  DMSEventAction* eventAction = new DMSEventAction(runAction);
+  SetUserAction(eventAction);
+
+  SetUserAction(new DMSSteppingAction());
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

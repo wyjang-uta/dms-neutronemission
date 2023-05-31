@@ -24,12 +24,12 @@
 // ********************************************************************
 //
 //
-/// \file B1SteppingAction.cc
-/// \brief Implementation of the B1SteppingAction class
+/// \file DMSSteppingAction.cc
+/// \brief Implementation of the DMSSteppingAction class
 
-#include "B1SteppingAction.hh"
-#include "B1EventAction.hh"
-#include "B1DetectorConstruction.hh"
+#include "DMSSteppingAction.hh"
+#include "DMSEventAction.hh"
+#include "DMSDetectorConstruction.hh"
 
 #include "G4Step.hh"
 #include "G4Event.hh"
@@ -40,18 +40,18 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-B1SteppingAction::B1SteppingAction()
+DMSSteppingAction::DMSSteppingAction()
 : G4UserSteppingAction()
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-B1SteppingAction::~B1SteppingAction()
+DMSSteppingAction::~DMSSteppingAction()
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void B1SteppingAction::UserSteppingAction(const G4Step* step)
+void DMSSteppingAction::UserSteppingAction(const G4Step* step)
 {
   auto analysisManager = G4AnalysisManager::Instance();
   G4StepPoint* presp = step->GetPreStepPoint();
