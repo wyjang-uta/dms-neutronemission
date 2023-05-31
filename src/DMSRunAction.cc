@@ -56,7 +56,7 @@ DMSRunAction::DMSRunAction()
   analysisManager->SetVerboseLevel(1);
 
   // Create an Ntuple
-  analysisManager->CreateNtuple("RAONSCL2", "RAONSCL2");
+  analysisManager->CreateNtuple("DMSNeutronEmission", "DMS Neutron Emission Simulation");
   analysisManager->CreateNtupleDColumn("kineticEnergy");
   analysisManager->CreateNtupleDColumn("totalEnergy");
   analysisManager->CreateNtupleDColumn("hit_x");

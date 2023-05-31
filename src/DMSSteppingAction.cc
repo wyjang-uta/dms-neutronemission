@@ -66,8 +66,8 @@ void DMSSteppingAction::UserSteppingAction(const G4Step* step)
   if( step->GetTrack()->GetParticleDefinition()->GetPDGEncoding() != 2112 ) return; // only neutrons
   if( postsp->GetTouchableHandle()->GetVolume() == nullptr ) return;
   if( presp->GetTouchableHandle()->GetVolume() == nullptr ) return;
-  presp_volume = presp->GetTouchableHandle()->Getvolume()->GetLogicalVolume()->GetName();
-  postsp_volume = postsp->GetTouchableHandle()->Getvolume()->GetLogicalVolume()->GetName();
+  presp_volume = presp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName();
+  postsp_volume = postsp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName();
   // select events
   if( !(presp_volume == "Dump" && postsp_volume != "Dump") ) return;
 
