@@ -57,37 +57,25 @@ void DMSSteppingAction::UserSteppingAction(const G4Step* step)
   G4StepPoint* presp = step->GetPreStepPoint();
   G4StepPoint* postsp = step->GetPostStepPoint();
 
-  // This routine records energy, momentum, and hit position of neutrons that are coming into the vacuum chamber.
-  // In order to identify neutrons coming into the chamber, we compare the step volume of the post-step point and the pre-step point.
-  // If the post-step point is "sensor_volume" but the pre-step point is some other volume, we accept those neutrons.
-  //
-  // To do: is there double counting issue?
-  // I think we can prevent this by rejecting the case that the pre-step volume and the post-step volume both are the 'sensor_volume'.
-  //
+  // Record all neutrons with prestep volume name == "Dump" but poststep volume name != "Dump".
+  // This means that particle is exiting the dump volume.
+  G4String presp_volume;
+  G4String postsp_volume;
   if( presp == nullptr ) return;
   if( postsp == nullptr ) return;
   if( step->GetTrack()->GetParticleDefinition()->GetPDGEncoding() != 2112 ) return; // only neutrons
   if( postsp->GetTouchableHandle()->GetVolume() == nullptr ) return;
   if( presp->GetTouchableHandle()->GetVolume() == nullptr ) return;
-  if( postsp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName() != "World" ) return;
-  //if( presp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName() != "mod_volume" ) return;
-  if( presp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName() == "Dump" )
-  {
-  }
-  if( presp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName() == "mod_sidewall" )
-  {
-    G4cout << "mod_sidewall -> world" << G4endl;
-  }
-  if( presp->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName() == "mod_endcap" )
-  {
-    G4cout << "mod_endcap -> world" << G4endl;
-  }
+  presp_volume = presp->GetTouchableHandle()->Getvolume()->GetLogicalVolume()->GetName();
+  postsp_volume = postsp->GetTouchableHandle()->Getvolume()->GetLogicalVolume()->GetName();
+  // select events
+  if( !(presp_volume == "Dump" && postsp_volume != "Dump") ) return;
 
   G4double KE=(G4double)postsp->GetKineticEnergy()/CLHEP::MeV;    // Kinetic energy
   G4double TE=(G4double)postsp->GetTotalEnergy()/CLHEP::MeV;      // Total energy
-  G4double vx=(G4double)postsp->GetPosition().getX()/CLHEP::m;    // Position where the neutron was produced.
-  G4double vy=(G4double)postsp->GetPosition().getY()/CLHEP::m;
-  G4double vz=(G4double)postsp->GetPosition().getZ()/CLHEP::m;
+  G4double vx=(G4double)postsp->GetPosition().getX()/CLHEP::cm;   // Position neutron exits the dump.
+  G4double vy=(G4double)postsp->GetPosition().getY()/CLHEP::cm;
+  G4double vz=(G4double)postsp->GetPosition().getZ()/CLHEP::cm;
   G4double px=(G4double)postsp->GetMomentum().getX()/CLHEP::MeV;  // Momentum of the neutron.
   G4double py=(G4double)postsp->GetMomentum().getY()/CLHEP::MeV;
   G4double pz=(G4double)postsp->GetMomentum().getZ()/CLHEP::MeV;
