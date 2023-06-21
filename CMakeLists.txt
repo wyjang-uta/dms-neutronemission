@@ -50,6 +50,7 @@ set(EXAMPLEDMS_SCRIPTS
   run2.mac
   test.mac
   vis.mac
+  util/root2txt.C
   )
 
 foreach(_script ${EXAMPLEDMS_SCRIPTS})
