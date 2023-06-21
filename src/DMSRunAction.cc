@@ -89,7 +89,7 @@ void DMSRunAction::BeginOfRunAction(const G4Run*)
 
   // Set output file name and open it.
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->SetFileName("RAONSCL2");
+  analysisManager->SetFileName("DMSNeutronEmission");
   analysisManager->OpenFile();
 }
 
